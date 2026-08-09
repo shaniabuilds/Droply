@@ -98,14 +98,13 @@ export default function Navbar({
 
   return (
     <header
-      className={`sticky top-4 z-50 mx-4 md:mx-6 px-3 transition-all duration-300 rounded-[50px] border border-border shadow-lg shadow-black/20
-      relative 
-      ${
-        isScrolled
-          ? "bg-background/60 backdrop-blur-xl"
-          : "bg-background/30 backdrop-blur-md"
-      }`}
-    >
+  className={`sticky top-4 z-50 mx-4 md:mx-6 px-3 transition-all duration-300 rounded-[50px] border border-border shadow-lg shadow-black/20 relative overflow-visible
+  ${
+    isScrolled
+      ? "bg-background/60 backdrop-blur-xl"
+      : "bg-background/30 backdrop-blur-md"
+  }`}
+>
       {/* glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-500/10 blur-3xl rounded-full" />
@@ -244,17 +243,17 @@ export default function Navbar({
       {/* BACKDROP */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={toggleMobileMenu}
-        />
+  className="fixed inset-0 w-screen h-dvh bg-black/50 z-40 md:hidden"
+  onClick={toggleMobileMenu}
+/>
       )}
 
       {/* MOBILE MENU */}
       <div
-        className={`fixed top-0 right-0 h-screen w-[78%] max-w-[320px] bg-zinc-950 border-l border-white/10 z-50 transform transition-transform duration-300 md:hidden ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
+  className={`fixed top-0 right-0 h-dvh w-[78%] max-w-[320px] bg-zinc-950 border-l border-white/10 z-50 transform transition-transform duration-300 md:hidden ${
+    isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+  }`}
+>
         {/* HEADER */}
         <div className="flex items-center justify-between p-5 border-b border-white/10">
           <div>
@@ -297,7 +296,6 @@ export default function Navbar({
           <SignedIn>
             <button
               onClick={() => {
-                toggleMobileMenu();
                 switchTab("files", "/dashboard");
               }}
               className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-white"
