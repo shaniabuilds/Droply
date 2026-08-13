@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
@@ -41,6 +42,10 @@ export default function FileUploadForm({
   // size error modal
   const [sizeModalOpen, setSizeModalOpen] = useState(false);
   const [sizeErrorMessage, setSizeErrorMessage] = useState("");
+
+  // needed so createPortal only runs on the client (avoids SSR mismatch)
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
@@ -440,56 +445,59 @@ export default function FileUploadForm({
         </div>
       </div>
 
-      {/* Folder Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setIsModalOpen(false)}
-          />
-
-          {/* Modal */}
-          <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-zinc-900/95 backdrop-blur-2xl shadow-2xl shadow-black/40 p-6">
-            {/* Header */}
-            <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-white">
-              <FolderPlus className="w-5 h-5 text-indigo-400" />
-              New Folder
-            </h3>
-
-            {/* Input */}
-            <input
-              type="text"
-              placeholder="My folder"
-              className="w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500/40 focus:bg-white/[0.05]"
-              value={folderName}
-              onChange={(e) => setFolderName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleCreateFolder();
-              }}
-              autoFocus
+      {mounted &&
+        isModalOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setIsModalOpen(false)}
             />
 
-            {/* Actions */}
-            <div className="mt-5 flex justify-end gap-2">
-              <button
-                className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white/70 transition hover:bg-white/[0.06] hover:text-white"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
+            {/* Modal */}
+            <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-zinc-900/95 backdrop-blur-2xl shadow-2xl shadow-black/40 p-6">
+              {/* Header */}
+              <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-white">
+                <FolderPlus className="w-5 h-5 text-indigo-400" />
+                New Folder
+              </h3>
 
-              <button
-                className="rounded-xl bg-indigo-500/20 text-indigo-300 px-5 py-2 text-sm font-medium transition hover:bg-indigo-500/30 hover:scale-[1.02] disabled:opacity-50"
-                onClick={handleCreateFolder}
-                disabled={!folderName.trim()}
-              >
-                Create Folder
-              </button>
+              {/* Input */}
+              <input
+                type="text"
+                placeholder="My folder"
+                className="w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500/40 focus:bg-white/[0.05]"
+                value={folderName}
+                onChange={(e) => setFolderName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleCreateFolder();
+                  if (e.key === "Escape") setIsModalOpen(false);
+                }}
+                autoFocus
+              />
+
+              {/* Actions */}
+              <div className="mt-5 flex justify-end gap-2">
+                <button
+                  className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white/70 transition hover:bg-white/[0.06] hover:text-white"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="rounded-xl bg-indigo-500/20 text-indigo-300 px-5 py-2 text-sm font-medium transition hover:bg-indigo-500/30 hover:scale-[1.02] disabled:opacity-50"
+                  onClick={handleCreateFolder}
+                  disabled={!folderName.trim()}
+                >
+                  Create Folder
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

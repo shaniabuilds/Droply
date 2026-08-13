@@ -1,9 +1,10 @@
+
 "use client";
 
 export default function FileLoadingState() {
   return (
     <div
-      className="flex flex-col items-center justify-center rounded-3xl border border-zinc-800/70 bg-zinc-900/50 px-6 py-24"
+      className="flex h-full min-h-[280px] w-full flex-col items-center justify-center rounded-3xl border border-zinc-800/70 bg-zinc-900/50 px-6 py-10"
     >
       {/* Title */}
       <h3 className="text-xl font-semibold text-zinc-100">

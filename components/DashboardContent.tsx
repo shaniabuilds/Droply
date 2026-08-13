@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { FileUp, FileText, User, Search } from "lucide-react";
 import FileUploadForm from "@/components/FileUploadForm";
 import FileList from "@/components/FileList";
@@ -25,6 +26,35 @@ export default function DashboardContent({
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [currentFolder, setCurrentFolder] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+
+  const uploadCardRef = useRef<HTMLDivElement>(null);
+  const [matchedHeight, setMatchedHeight] = useState<number | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    const uploadEl = uploadCardRef.current;
+    if (!uploadEl) return;
+
+    const updateHeight = () => {
+      if (window.innerWidth >= 1024) {
+        setMatchedHeight(uploadEl.getBoundingClientRect().height);
+      } else {
+        setMatchedHeight(undefined);
+      }
+    };
+
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(updateHeight);
+    resizeObserver.observe(uploadEl);
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [activeTab]);
 
   useEffect(() => {
     setActiveTab(tab);
@@ -119,7 +149,10 @@ export default function DashboardContent({
             <div className="relative group">
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-indigo-500/20 to-transparent blur-sm" />
 
-              <div className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl p-5">
+              <div
+                ref={uploadCardRef}
+                className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl p-5"
+              >
                 <div className="flex items-center gap-2 mb-4">
                   <FileUp className="text-indigo-400" />
                   <h3 className=" font-semibold text-xl">Upload Files</h3>
@@ -137,14 +170,17 @@ export default function DashboardContent({
             <div className="lg:col-span-2 relative group">
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-sky-500/20 to-transparent blur-sm" />
 
-              <div className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl p-5">
-                <div className="flex items-center gap-2 mb-4">
+              <div
+                className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl p-5 flex flex-col lg:overflow-hidden"
+                style={matchedHeight ? { height: `${matchedHeight}px` } : undefined}
+              >
+                <div className="flex items-center gap-2 mb-4 shrink-0">
                   <FileText className="text-sky-400" />
                   <h3 className="font-semibold text-xl">Your Files</h3>
                 </div>
 
                 {/* SEARCH */}
-                <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
+                <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-xl border border-white/10 bg-white/5 shrink-0">
                   <Search size={16} className="text-white/40" />
                   <input
                     value={search}
@@ -154,12 +190,14 @@ export default function DashboardContent({
                   />
                 </div>
 
-                <FileList
-                  refreshTrigger={refreshTrigger}
-                  onFolderChange={handleFolderChange}
-                  onShare={handleShare}
-                  search={search}
-                />
+                <div className="overflow-y-auto lg:pr-1 flex-1 min-h-0">
+                  <FileList
+                    refreshTrigger={refreshTrigger}
+                    onFolderChange={handleFolderChange}
+                    onShare={handleShare}
+                    search={search}
+                  />
+                </div>
               </div>
             </div>
           </div>
