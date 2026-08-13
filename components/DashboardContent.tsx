@@ -56,11 +56,11 @@ export default function DashboardContent({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-default-50 text-white overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-default-50 text-white overflow-x-hidden">
       {/* BACKGROUND GLOW */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 blur-3xl rounded-full" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-sky-500/10 blur-3xl rounded-full" />
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 left-0 w-[500px] max-w-[80vw] h-[500px] bg-indigo-500/10 blur-3xl rounded-full" />
+        <div className="absolute bottom-0 right-0 w-[500px] max-w-[80vw] h-[500px] bg-sky-500/10 blur-3xl rounded-full" />
       </div>
 
       <section className="relative z-10 space-y-8">

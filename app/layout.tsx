@@ -1,3 +1,4 @@
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -34,10 +35,10 @@ export default function RootLayout({
           overflow-x-hidden
         `}
       >
-        <div className="relative min-h-screen">
-          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="relative min-h-screen overflow-x-hidden">
+          <div className="absolute top-0 left-0 w-[500px] max-w-[80vw] h-[500px] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
 
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent/20 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[500px] max-w-[80vw] h-[500px] bg-accent/20 blur-[120px] rounded-full pointer-events-none" />
 
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none" />
 
