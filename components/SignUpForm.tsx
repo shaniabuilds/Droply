@@ -240,7 +240,7 @@ export default function SignUpForm() {
 
         <button
           disabled={isSubmitting}
-          className="w-full mt-5 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 text-white font-semibold tracking-wide shadow-lg shadow-indigo-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold shadow-lg shadow-indigo-500/20"
         >
           {isSubmitting ? "Creating your Droply account..." : "Create Account"}
         </button>

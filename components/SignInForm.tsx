@@ -143,7 +143,7 @@ export default function SignInForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full mt-2 py-2.5 rounded-xl font-semibold bg-indigo-500 hover:bg-indigo-600 text-white transition active:scale-[0.98] disabled:opacity-50"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold shadow-lg shadow-indigo-500/20"
         >
           {isSubmitting ? "Signing in..." : "Sign in"}
         </button>

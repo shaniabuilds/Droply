@@ -1,3 +1,4 @@
+
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import {
@@ -47,7 +48,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 pt-10 justify-center lg:justify-start">
                 <SignedOut>
                   <Link href="/sign-up">
-                    <button className="group px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 shadow-lg shadow-indigo-500/20 flex items-center gap-2">
+                    <button className="group px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 flex items-center gap-2">
                       Get Started
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -62,7 +63,7 @@ export default function Home() {
 
                 <SignedIn>
                   <Link href="/dashboard">
-                    <button className="group px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 shadow-lg shadow-indigo-500/20 flex items-center gap-2">
+                    <button className="group px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 flex items-center gap-2">
                       Go to Dashboard
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -280,7 +281,7 @@ export default function Home() {
                 <div className="flex items-center justify-center gap-4 flex-wrap">
                   <SignedOut>
                     <Link href="/sign-up">
-                      <button className="px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 shadow-[0_10px_30px_rgba(99,102,241,0.25)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.35)] hover:-translate-y-1">
+                      <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:scale-[1.02] transition-all duration-300 shadow-[0_10px_30px_rgba(99,102,241,0.25)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.35)] hover:-translate-y-1">
                         Create Free Account
                       </button>
                     </Link>
@@ -288,7 +289,7 @@ export default function Home() {
 
                   <SignedIn>
                     <Link href="/dashboard">
-                      <button className="px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 shadow-[0_10px_30px_rgba(99,102,241,0.25)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.35)] hover:-translate-y-1">
+                      <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:scale-[1.02] transition-all duration-300 shadow-[0_10px_30px_rgba(99,102,241,0.25)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.35)] hover:-translate-y-1">
                         Open Dashboard
                       </button>
                     </Link>
